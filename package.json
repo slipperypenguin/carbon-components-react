@@ -15,7 +15,7 @@
     "prepublish": "yarn build",
     "prettier": "prettier --write \"**/*.{scss,css,js}\"",
     "prettier:diff": "prettier --list-different \"**/*.{scss,css,js}\"",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 9000",
     "test": "jest",
@@ -102,8 +102,8 @@
   "peerDependencies": {
     "carbon-components": "^8.1.11",
     "carbon-icons": "^5.1.2 || ^6.0.0",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0"
+    "react": "^15.3.2 || ^16.1.0",
+    "react-dom": "^15.3.2 || ^16.1.0"
   },
   "dependencies": {
     "classnames": "2.2.5",
@@ -152,10 +152,13 @@
     "requestanimationframe": "^0.0.23",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^11.0.2",
     "shelljs": "^0.7.5",
     "storybook-addon-a11y": "^3.0.0",
     "whatwg-fetch": "^2.0.3"
+  },
+  "release": {
+    "branch": "master"
   },
   "babel": {
     "presets": [
