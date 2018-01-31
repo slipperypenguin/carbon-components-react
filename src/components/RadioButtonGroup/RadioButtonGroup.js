@@ -19,24 +19,6 @@ export default class RadioButtonGroup extends React.Component {
     className: 'bx--radio-button-group',
   };
 
-  state = {
-    selected: null,
-  };
-
-  componentWillMount() {
-    this.setState({
-      selected: this.props.valueSelected || this.props.defaultSelected || null,
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.hasOwnProperty('valueSelected')) {
-      this.setState({
-        selected: nextProps.valueSelected,
-      });
-    }
-  }
-
   getRadioButtons = () => {
     const children = React.Children.map(this.props.children, radioButton => {
       const { value, ...other } = radioButton.props;
@@ -56,7 +38,7 @@ export default class RadioButtonGroup extends React.Component {
           key={value}
           value={value}
           onChange={this.handleChange}
-          checked={value === this.state.selected}
+          checked={value === this.props.valueSelected}
         />
       );
     });
@@ -65,7 +47,7 @@ export default class RadioButtonGroup extends React.Component {
   };
 
   handleChange = (newSelection, value, evt) => {
-    if (newSelection !== this.state.selected) {
+    if (newSelection !== this.props.valueSelected) {
       this.setState({ selected: newSelection });
       this.props.onChange(newSelection, this.props.name, evt);
     }
