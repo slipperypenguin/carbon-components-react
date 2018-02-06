@@ -18,7 +18,7 @@ const TooltipSimple = ({
   const tooltipWrapperClasses = classNames(`bx--tooltip--simple`, className);
   return (
     <div className={tooltipWrapperClasses}>
-      {children}
+      {showIcon ? children : null}
       <div
         className={tooltipClasses}
         data-tooltip-text={text}
@@ -28,6 +28,7 @@ const TooltipSimple = ({
         {showIcon && (
           <Icon role="img" name={iconName} description={iconDescription} />
         )}
+        {showIcon ? null : children}
       </div>
     </div>
   );
