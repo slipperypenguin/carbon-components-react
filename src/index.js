@@ -66,6 +66,7 @@ export {
 export OverflowMenu from './components/OverflowMenu';
 export OverflowMenuItem from './components/OverflowMenuItem';
 export Pagination from './components/Pagination';
+export PaginationV2 from './components/PaginationV2';
 export PrimaryButton from './components/PrimaryButton';
 export {
   ProgressIndicator,
@@ -112,6 +113,7 @@ export {
 export TimePicker from './components/TimePicker';
 export TimePickerSelect from './components/TimePickerSelect';
 export Toggle from './components/Toggle';
+export ToggleSmall from './components/ToggleSmall';
 export Toolbar, {
   ToolbarItem,
   ToolbarTitle,

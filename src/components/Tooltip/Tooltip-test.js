@@ -36,7 +36,8 @@ describe('Tooltip', () => {
         triggerText="Tooltip"
         direction="bottom"
         menuOffset={{ left: 10, top: 15 }}
-        showIcon={false}>
+        showIcon={false}
+        open={true}>
         {' '}
         <p className="bx--tooltip__label">Tooltip label</p>
         <p>Lorem ipsum dolor sit amet</p>
@@ -63,7 +64,7 @@ describe('Tooltip', () => {
             .find('[data-floating-menu-direction]')
             .first()
             .prop('className')
-        ).toBe('bx--tooltip tooltip--class');
+        ).toBe('bx--tooltip bx--tooltip--shown tooltip--class');
       });
       it('sets the trigger class', () => {
         expect(trigger.prop('className')).toBe(
@@ -165,16 +166,30 @@ describe('Tooltip', () => {
   describe('getTriggerPosition', () => {
     it('sets triggerPosition when triggerEl is set', () => {
       const rootWrapper = mount(<Tooltip clickToOpen triggerText="Tooltip" />);
-      rootWrapper.setState({ triggerPosition: 'test' });
+      rootWrapper.setState({
+        triggerPosition: { left: 0, top: 0, right: 0, bottom: 0 },
+      });
       rootWrapper.instance().getTriggerPosition();
-      expect(rootWrapper.state().triggerPosition).not.toEqual('test');
+      expect(rootWrapper.state().triggerPosition).not.toEqual({
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+      });
     });
     it('does not set triggerPosition when triggerEl is not set', () => {
       const rootWrapper = mount(<Tooltip clickToOpen triggerText="Tooltip" />);
-      rootWrapper.setState({ triggerPosition: 'test' });
+      rootWrapper.setState({
+        triggerPosition: { left: 0, top: 0, right: 0, bottom: 0 },
+      });
       delete rootWrapper.instance().triggerEl;
       rootWrapper.instance().getTriggerPosition();
-      expect(rootWrapper.state().triggerPosition).toEqual('test');
+      expect(rootWrapper.state().triggerPosition).toEqual({
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+      });
     });
   });
 });
