@@ -15,13 +15,9 @@ View available React Components [here](http://react.carbondesignsystem.com). Usa
 ### Getting Started
 
 ```
-<<<<<<< HEAD
 npm install -S carbon-react-agave carbon-components carbon-icons
-=======
-npm install -S carbon-components-react carbon-components carbon-icons
 # Or, with yarn
-yarn add carbon-components-rect carbon-components carbon-icons
->>>>>>> upstream/master
+yarn add carbon-react-agave carbon-components carbon-icons
 ```
 
 1. These components require the use of [Webpack](http://webpack.github.io/docs/tutorials/getting-started/) in your project. See our [`webpack.config.js`](/.storybook/webpack.config.js) for an example configuration.
@@ -32,7 +28,7 @@ yarn add carbon-components-rect carbon-components carbon-icons
 
 ## Development
 
-Please refer to the [Contribution Guidelines](./github/CONTRIBUTING.md) before starting any work.
+Please refer to the [Contribution Guidelines](./.github/CONTRIBUTING.md) before starting any work.
 
 ### Using the server
 
