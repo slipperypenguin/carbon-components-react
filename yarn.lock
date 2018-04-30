@@ -2867,9 +2867,9 @@ caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.300008
   version "1.0.30000827"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000827.tgz#2dad2354e4810c3c9bb1cfc57f655c270c25fa52"
 
-carbon-components@^8.10.0:
-  version "8.18.5"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-8.18.5.tgz#1e9d8ea0eb23de2f95213fce9a9df35b064159cc"
+carbon-components@^8.18.15:
+  version "8.18.18"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-8.18.18.tgz#15b0a60f5e773c100f1036eca114ce235cb6a1bb"
   dependencies:
     carbon-icons "^6.0.4"
     flatpickr "2.6.3"
@@ -4735,9 +4735,9 @@ flatpickr@2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-2.6.3.tgz#457357532deb135f3da64b425bf4435737961564"
 
-flatpickr@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.3.0.tgz#9cc3aa8c9a2bde1ea431be0f4a74f40f9bad79e3"
+flatpickr@4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.4.1.tgz#894255e33c2bed93f48171f8eb5980a79b76ab1d"
 
 flatten@^1.0.2:
   version "1.0.2"
