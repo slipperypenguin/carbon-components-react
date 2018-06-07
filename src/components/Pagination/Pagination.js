@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
+import warning from 'warning';
 import Icon from '../Icon';
 import Select from '../Select';
 import SelectItem from '../SelectItem';
 import TextInput from '../TextInput';
 import { equals } from '../../tools/array';
+
+let didWarnAboutDeprecation = false;
 
 export default class Pagination extends Component {
   static propTypes = {
@@ -54,6 +57,18 @@ export default class Pagination extends Component {
     onChangeInterval: 250,
   };
 
+  constructor(props) {
+    super(props);
+    if (__DEV__) {
+      warning(
+        didWarnAboutDeprecation,
+        'The `Pagination` component is being updated in the next release of ' +
+          '`carbon-components-react`. Please use `PaginationV2` instead.'
+      );
+      didWarnAboutDeprecation = true;
+    }
+  }
+
   state = {
     page: this.props.page,
     pageSize:
@@ -62,7 +77,7 @@ export default class Pagination extends Component {
         : this.props.pageSizes[0],
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.uniqueId = `${Math.floor(Math.random() * 0xffff)}`;
   }
 
@@ -79,7 +94,7 @@ export default class Pagination extends Component {
     this.pageInputDebouncer.cancel();
   }
 
-  componentWillReceiveProps({ pageSizes, page, pageSize }) {
+  UNSAFE_componentWillReceiveProps({ pageSizes, page, pageSize }) {
     if (!equals(pageSizes, this.props.pageSizes)) {
       this.setState({ pageSize: pageSizes[0], page: 1 });
     }
@@ -106,7 +121,8 @@ export default class Pagination extends Component {
       // used for case when page # is 0 or empty. For other cases
       // existing props will be used.
       page >= 0 &&
-      page <= Math.ceil(this.props.totalItems / this.state.pageSize)
+      page <=
+        Math.max(Math.ceil(this.props.totalItems / this.state.pageSize), 1)
     ) {
       this.setState({ page }, () => this.pageInputDebouncer(this.state.page));
     }
@@ -138,7 +154,7 @@ export default class Pagination extends Component {
       return itemText(pageSize * (page - 1) + 1, page * pageSize);
     } else if (page > 0) {
       return itemRangeText(
-        pageSize * (page - 1) + 1,
+        Math.min(pageSize * (page - 1) + 1, totalItems),
         Math.min(page * pageSize, totalItems),
         totalItems
       );
@@ -159,7 +175,7 @@ export default class Pagination extends Component {
     if (pagesUnknown) {
       return pageText(page);
     } else if (page > 0) {
-      return pageRangeText(page, Math.ceil(totalItems / pageSize));
+      return pageRangeText(page, Math.max(Math.ceil(totalItems / pageSize), 1));
     }
     return defaultPageText(Math.ceil(totalItems / pageSize));
   };
@@ -192,6 +208,7 @@ export default class Pagination extends Component {
 
     const statePage = this.state.page;
     const statePageSize = this.state.pageSize;
+    const totalPages = Math.max(Math.ceil(totalItems / statePageSize), 1);
     const classNames = classnames('bx--pagination', className);
     const inputId = id || this.uniqueId;
 
@@ -240,9 +257,7 @@ export default class Pagination extends Component {
             className="bx--pagination__button bx--pagination__button--forward"
             onClick={this.incrementPage}
             disabled={
-              this.props.disabled ||
-              statePage === Math.ceil(totalItems / statePageSize) ||
-              isLastPage
+              this.props.disabled || statePage === totalPages || isLastPage
             }>
             <Icon
               className="bx--pagination__button-icon"
