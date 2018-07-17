@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { iconCaretUp, iconCaretDown } from 'carbon-icons';
 import Icon from '../Icon';
 import classNames from 'classnames';
 
@@ -9,7 +10,7 @@ export default class NumberInput extends Component {
     disabled: PropTypes.bool,
     iconDescription: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    label: PropTypes.string,
+    label: PropTypes.node,
     max: PropTypes.number,
     min: PropTypes.number,
     /**
@@ -168,7 +169,7 @@ export default class NumberInput extends Component {
               onClick={() => this.handleArrowClick('up')}>
               <Icon
                 className="up-icon"
-                name="caret--up"
+                icon={iconCaretUp}
                 description={this.props.iconDescription}
                 viewBox="0 0 10 5"
               />
@@ -180,7 +181,7 @@ export default class NumberInput extends Component {
                 this.handleArrowClick('down')}}>
               <Icon
                 className="down-icon"
-                name="caret--down"
+                icon={iconCaretDown}
                 viewBox="0 0 10 5"
                 description={this.props.iconDescription}
               />
