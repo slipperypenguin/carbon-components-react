@@ -73,16 +73,16 @@ export default class NumberInput extends Component {
       evt.imaginaryTarget = this._inputRef;
       this.setState(
         {
-          value: Number(evt.target.value),
+          value: evt.target.value,
         },
         () => {
-          this.props.onChange(this.state.value);
+          this.props.onChange(evt);
         }
       );
     }
   };
 
-  handleArrowClick = (direction) => {
+  handleArrowClick = (evt, direction) => {
     let value =
       typeof this.state.value === 'string'
         ? Number(this.state.value)
@@ -102,8 +102,8 @@ export default class NumberInput extends Component {
           value,
         },
         () => {
-          this.props.onClick(value);
-          this.props.onChange(value);
+          this.props.onClick(evt, direction);
+          this.props.onChange(evt, direction);
         }
       );
     }
@@ -166,7 +166,7 @@ export default class NumberInput extends Component {
             <button
               className="bx--number__control-btn up-icon"
               {...buttonProps}
-              onClick={() => this.handleArrowClick('up')}>
+              onClick={evt => this.handleArrowClick(evt, 'up')}>
               <Icon
                 className="up-icon"
                 icon={iconCaretUp}
@@ -177,8 +177,8 @@ export default class NumberInput extends Component {
             <button
               className="bx--number__control-btn down-icon"
               {...buttonProps}
-              onClick={() => {
-                this.handleArrowClick('down')}}>
+              onClick={evt => {
+                this.handleArrowClick(evt, 'down')}}>
               <Icon
                 className="down-icon"
                 icon={iconCaretDown}
