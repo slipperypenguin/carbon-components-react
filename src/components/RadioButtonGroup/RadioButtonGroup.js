@@ -56,7 +56,7 @@ export default class RadioButtonGroup extends React.Component {
           key={value}
           value={value}
           onChange={this.handleChange}
-          checked={value === this.state.selected}
+          checked={value === this.props.valueSelected}
         />
       );
     });
@@ -65,7 +65,7 @@ export default class RadioButtonGroup extends React.Component {
   };
 
   handleChange = (newSelection, value, evt) => {
-    if (newSelection !== this.state.selected) {
+    if (newSelection !== this.props.valueSelected) {
       this.setState({ selected: newSelection });
       this.props.onChange(newSelection, this.props.name, evt);
     }
