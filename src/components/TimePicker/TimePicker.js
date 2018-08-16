@@ -40,18 +40,14 @@ export default class TimePicker extends Component {
     light: false,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: props.value,
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value });
-    }
+  static getDerivedStateFromProps({ value }, state) {
+    const { prevValue } = state || {};
+    return state && prevValue === value
+      ? null
+      : {
+          value,
+          prevValue: value,
+        };
   }
 
   render() {
@@ -131,13 +127,13 @@ export default class TimePicker extends Component {
       <div className="bx--form-item">
         <div className={timePickerClasses}>
           <div className="bx--time-picker__input">
+            {label}
             <input
               {...other}
               {...timePickerInputProps}
               data-invalid={invalid ? invalid : undefined}
               className="bx--time-picker__input-field"
             />
-            {label}
             {error}
           </div>
           {children}

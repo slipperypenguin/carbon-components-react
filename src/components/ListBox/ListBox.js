@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ListBoxField from './ListBoxField';
 import ListBoxMenu from './ListBoxMenu';
@@ -12,6 +12,11 @@ const handleOnKeyDown = event => {
   }
 };
 
+const handleClick = event => {
+  event.preventDefault();
+  event.stopPropagation();
+};
+
 /**
  * `ListBox` is a generic container component that handles creating the
  * container class name in response to certain props.
@@ -22,6 +27,8 @@ const ListBox = ({
   disabled,
   innerRef,
   type,
+  invalid,
+  invalidText,
   ...rest
 }) => {
   const className = cx({
@@ -31,15 +38,23 @@ const ListBox = ({
     'bx--list-box--disabled': disabled,
   });
   return (
-    <div
-      {...rest}
-      role="listbox"
-      tabIndex="0"
-      className={className}
-      ref={innerRef}
-      onKeyDown={handleOnKeyDown}>
-      {children}
-    </div>
+    <Fragment>
+      <div
+        {...rest}
+        role="listbox"
+        tabIndex="0"
+        className={className}
+        ref={innerRef}
+        onKeyDown={handleOnKeyDown}
+        onClick={handleClick}
+        data-invalid={invalid || undefined}
+        aria-invalid={invalid || undefined}>
+        {children}
+      </div>
+      {invalid ? (
+        <div className="bx--form-requirement">{invalidText}</div>
+      ) : null}
+    </Fragment>
   );
 };
 

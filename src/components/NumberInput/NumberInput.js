@@ -48,23 +48,14 @@ export default class NumberInput extends Component {
    */
   _inputRef = null;
 
-  constructor(props) {
-    super(props);
-
-    let value = props.value;
-    if (props.min || props.min === 0) {
-      value = Math.max(props.min, value);
-    }
-
-    this.state = {
-      value,
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value });
-    }
+  static getDerivedStateFromProps({ min, value }, state) {
+    const { prevValue } = state || {};
+    return state && prevValue === value
+      ? null
+      : {
+          value: state || isNaN(min) ? value : Math.max(min, value),
+          prevValue: value,
+        };
   }
 
   handleChange = evt => {
@@ -187,6 +178,9 @@ export default class NumberInput extends Component {
               />
             </button>
           </div>
+          <label htmlFor={id} className="bx--label">
+            {label}
+          </label>
           <input
             type="number"
             pattern="[0-9]*"
@@ -194,9 +188,6 @@ export default class NumberInput extends Component {
             {...props}
             ref={this._handleInputRef}
           />
-          <label htmlFor={id} className="bx--label">
-            {label}
-          </label>
           {error}
         </div>
       </div>
