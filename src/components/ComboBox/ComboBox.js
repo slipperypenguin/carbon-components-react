@@ -86,15 +86,37 @@ export default class ComboBox extends React.Component {
     shouldFilterItem: PropTypes.func,
 
     /**
+     * Specify if the currently selected value is invalid.
+     */
+    invalid: PropTypes.bool,
+
+    /**
+     * Message which is displayed if the value is invalid.
+     */
+    invalidText: PropTypes.string,
+
+    /**
+     * Specify a custom translation function that takes in a message identifier
+     * and returns the localized string for the message
+     */
+    translateWithId: PropTypes.func,
+
+    /**
      * Currently supports either the default type, or an inline variant
      */
     type: ListBoxPropTypes.ListBoxType,
+
     /**
      * Callback function to notify consumer when the text input changes.
      * This provides support to change available items based on the text.
      * @param {string} inputText
      */
     onInputChange: PropTypes.func,
+
+    /**
+     * should use "light theme" (white background)?
+     */
+    light: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -103,6 +125,7 @@ export default class ComboBox extends React.Component {
     shouldFilterItem: defaultShouldFilterItem,
     type: 'default',
     ariaLabel: 'ListBox input field',
+    light: false,
   };
 
   constructor(props) {
@@ -162,8 +185,13 @@ export default class ComboBox extends React.Component {
       placeholder,
       initialSelectedItem,
       ariaLabel,
+      translateWithId,
+      invalid,
+      invalidText,
+      light,
     } = this.props;
     const className = cx('bx--combo-box', containerClassName);
+
     return (
       <Downshift
         onChange={this.handleOnChange}
@@ -185,6 +213,9 @@ export default class ComboBox extends React.Component {
           <ListBox
             className={className}
             disabled={disabled}
+            invalid={invalid}
+            invalidText={invalidText}
+            light={light}
             {...getRootProps({ refKey: 'innerRef' })}>
             <ListBox.Field {...getButtonProps({ disabled })}>
               <input
@@ -198,8 +229,16 @@ export default class ComboBox extends React.Component {
                 })}
               />
               {inputValue &&
-                isOpen && <ListBox.Selection clearSelection={clearSelection} />}
-              <ListBox.MenuIcon isOpen={isOpen} />
+                isOpen && (
+                  <ListBox.Selection
+                    clearSelection={clearSelection}
+                    translateWithId={translateWithId}
+                  />
+                )}
+              <ListBox.MenuIcon
+                isOpen={isOpen}
+                translateWithId={translateWithId}
+              />
             </ListBox.Field>
             {isOpen && (
               <ListBox.Menu>

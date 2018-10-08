@@ -5,9 +5,14 @@ import Icon from '../Icon';
 
 export default class DatePickerInput extends Component {
   static propTypes = {
+    /**
+     * Specify an id that unique identifies the <input>
+     */
     id: PropTypes.string.isRequired,
-    children: PropTypes.node,
-    value: PropTypes.string,
+    /**
+     * The description of the calendar icon.
+     */
+    iconDescription: PropTypes.string,
   };
 
   static defaultProps = {
@@ -33,6 +38,8 @@ export default class DatePickerInput extends Component {
       type,
       datePickerType,
       pattern,
+      iconDescription,
+      openCalendar,
       ...other
     } = this.props;
 
@@ -59,7 +66,12 @@ export default class DatePickerInput extends Component {
 
     const datePickerIcon =
       datePickerType === 'single' ? (
-        <Icon name="calendar" className="bx--date-picker__icon" />
+        <Icon
+          name="calendar"
+          className="bx--date-picker__icon"
+          description={iconDescription}
+          onClick={openCalendar}
+        />
       ) : (
         ''
       );
@@ -73,6 +85,10 @@ export default class DatePickerInput extends Component {
     const error = invalid ? (
       <div className="bx--form-requirement">{invalidText}</div>
     ) : null;
+
+    const containerClasses = classNames('bx--date-picker-container', {
+      'bx--date-picker--nolabel': !label,
+    });
 
     const input = invalid ? (
       <input
@@ -96,7 +112,7 @@ export default class DatePickerInput extends Component {
     );
 
     return (
-      <div className="bx--date-picker-container">
+      <div className={containerClasses}>
         {datePickerIcon}
         {label}
         {input}

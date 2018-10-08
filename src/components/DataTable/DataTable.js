@@ -4,7 +4,7 @@ import isEqual from 'lodash.isequal';
 import getDerivedStateFromProps from './state/getDerivedStateFromProps';
 import { getNextSortState } from './state/sorting';
 import denormalize from './tools/denormalize';
-import { composeEventHandlers } from './tools/events';
+import { composeEventHandlers } from '../../tools/events';
 import { defaultFilterRows } from './tools/filter';
 import { defaultSortRow } from './tools/sorting';
 import setupGetInstanceId from './tools/instanceId';
@@ -174,6 +174,7 @@ export default class DataTable extends React.Component {
       onExpand: composeEventHandlers([this.handleOnExpandRow(row.id), onClick]),
       isExpanded: row.isExpanded,
       ariaLabel: t(translationKey),
+      isSelected: row.isSelected,
     };
   };
 

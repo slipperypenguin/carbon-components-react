@@ -4,13 +4,43 @@ import RadioButton from '../RadioButton';
 import warning from 'warning';
 
 export default class RadioButtonGroup extends React.Component {
+  state = { selected: this.props.valueSelected || this.props.defaultSelected };
+
   static propTypes = {
+    /**
+     * Provide a collection of <RadioButton> components to render in the group
+     */
     children: PropTypes.node,
+
+    /**
+     * Provide an optional className to be applied to the container node
+     */
     className: PropTypes.string,
+
+    /**
+     * Specify the <RadioButton> to be selected by default
+     */
     defaultSelected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     * Specify the name of the underlying <input> nodes
+     */
     name: PropTypes.string.isRequired,
+
+    /**
+     * Specify whether the group is disabled
+     */
     disabled: PropTypes.bool,
+
+    /**
+     * Provide an optional `onChange` hook that is called whenever the value of
+     * the group changes
+     */
     onChange: PropTypes.func,
+
+    /**
+     * Specify the value that is currently selected in the group
+     */
     valueSelected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
@@ -20,8 +50,8 @@ export default class RadioButtonGroup extends React.Component {
   };
 
   static getDerivedStateFromProps({ valueSelected, defaultSelected }, state) {
-    const { prevValueSelected } = state || {};
-    return state && prevValueSelected === valueSelected
+    const { prevValueSelected } = state;
+    return prevValueSelected === valueSelected
       ? null
       : {
           selected: valueSelected || defaultSelected,
